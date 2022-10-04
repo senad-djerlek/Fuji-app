@@ -1,8 +1,19 @@
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
-  const activeLink = "bg-blue-100 text-black";
-  const unactiveLink = "";
+  let activeStyle = {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: "1.2rem",
+    transition: "0.1s ease-in",
+  };
+
+  let activeClassName =
+    "text-sm font-medium flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-red hover:text-grayish";
+
+  let nesto =
+    "text-sm font-medium flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-grayish hover:text-grayish";
+
   return (
     <>
       <link
@@ -10,55 +21,46 @@ function Navbar() {
         href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       />
 
-      <div class="min-h-screen flex flex-row bg-dark w-46 pl-3">
+      <div class="min-h-screen flex flex-row bg-dark w-full pl-3">
         <div class="flex flex-col bg-dark overflow-hidden w-full ">
           <ul class="flex flex-col py-4">
             <li>
               <NavLink
                 to="/"
+                end
                 className={({ isActive }) =>
-                  isActive ? activeLink : unactiveLink
+                  isActive ? activeClassName : nesto
                 }
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
-                <span class="text-sm font-medium flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-grayish hover:text-grayish">
-                  Home
-                </span>
+                Home
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/anime"
-                className={({ isActive }) =>
-                  isActive ? activeLink : unactiveLink
-                }
+                to="anime"
+                className={nesto}
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
-                <span class="text-sm font-medium flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-grayish hover:text-grayish">
-                  Anime
-                </span>
+                Anime
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/manga"
-                className={({ isActive }) =>
-                  isActive ? activeLink : unactiveLink
-                }
+                to="manga"
+                className={nesto}
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
-                <span class="text-sm font-medium flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-grayish hover:text-grayish">
-                  Manga
-                </span>
+                Manga
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? activeLink : unactiveLink
-                }
+                to="about"
+                className={nesto}
+                style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
-                <span class="text-sm font-medium flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-grayish hover:text-grayish">
-                  About Us
-                </span>
+                About Us
               </NavLink>
             </li>
           </ul>
