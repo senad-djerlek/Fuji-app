@@ -64,10 +64,10 @@ export default function AppShellDemo() {
     >
       <Text>Resize app to see responsive navbar in action</Text>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/anime" element={<Anime/>} />
-        <Route path="/manga" element={<Manga/>} />
-        <Route path="/about" element={<About />} />
+        <Route path="/"  element={<Home/>} />
+        <Route path="anime" element={<Anime/>} />
+        <Route path="manga" element={<Manga/>} />
+        <Route path="about" element={<About />} />
       </Routes>
     </AppShell>
   );
