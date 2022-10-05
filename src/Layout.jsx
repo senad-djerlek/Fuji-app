@@ -3,12 +3,12 @@ import {
   AppShell,
   Navbar,
   Header,
-  Footer,
   Text,
   MediaQuery,
   Burger,
   useMantineTheme,
 } from "@mantine/core";
+import Logo from './img/fuji-logo.png';
 
 import Sidebar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
@@ -56,7 +56,7 @@ export default function AppShellDemo() {
                 mr="xl"
               />
             </MediaQuery>
-
+            <img src={Logo} alt="" className="w-9 h-9 lg:ml-3 sm:ml-5"/>
             <h1 className="text-white text-3xl font-bold pl-3">Fuji</h1>
           </div>
         </Header>
