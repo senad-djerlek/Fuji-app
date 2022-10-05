@@ -11,6 +11,7 @@ import {
 import Logo from './img/fuji-logo.png';
 
 import Sidebar from "./components/Navbar/Navbar";
+import FooterReal from "./components/Footer/Footer";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/HomePage/Home";
 import Anime from "./pages/AnimePage/Anime";
@@ -41,6 +42,11 @@ export default function AppShellDemo() {
           <Sidebar/>
         </Navbar>
       }
+      footer={
+        <Footer height={60} p="md">
+          <FooterReal/>
+        </Footer>
+      }
       header={
         <Header height={70}>
           <div
@@ -62,7 +68,7 @@ export default function AppShellDemo() {
         </Header>
       }
     >
-      <Text>Resize app to see responsive navbar in action</Text>
+      {/* <Text>Resize app to see responsive navbar in action</Text> */}
       <Routes>
         <Route path="/"  element={<Home/>} />
         <Route path="anime" element={<Anime/>} />
