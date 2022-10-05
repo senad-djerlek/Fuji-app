@@ -72,7 +72,6 @@ export default function AppShellDemo() {
         </Header>
       }
     >
-      {/* <Text>Resize app to see responsive navbar in action</Text> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="anime" element={<Anime />} />

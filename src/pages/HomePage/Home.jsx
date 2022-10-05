@@ -1,21 +1,30 @@
-import AnimeCard from "../../components/AnimeCard/AnimeCard";
-import { useState, useEffect } from "react";
+import {useEffect, useState} from 'react'
+import HomePoster from '../../components/HomePoster/HomePoster'
 
-function Home() {
-  const [animes, setAnimes] = useState([]);
+function Home(){
+    
+    const [api, setApi] = useState([])
 
-  async function getAnimes() {
-    const res = await fetch(`https://kitsu.io/api/edge/categories/1/anime`);
-    const data = await res.json();
-    setAnimes(data.data);
-    console.log(data.data);
-  }
+    const getApi=() => {
+    fetch("https://kitsu.io/api/edge/trending/anime")
+    .then((res) => res.json())
+    .then((json) => {
+        setApi(json.data)
+        console.log(json.data)
+    })
+    }
+    
+    useEffect(() => {
+        getApi()
+},[])
 
-  useEffect(() => {
-    getAnimes();
-  }, []);
-
-  return <div></div>;
+    return(<div>
+        {api.map((el) => (
+            <HomePoster
+            image={el.attributes.coverImage.large}
+            />
+        ))}
+    </div>)
 }
 
 export default Home;
