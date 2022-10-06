@@ -18,9 +18,9 @@ function Anime(){
       getAnimes();
     }, []);
     return (
-      <div className="flex flex-wrap gap-2 justify-center">
+      <div className="flex flex-wrap gap-8 justify-center">
         {animes.map((anime) => (
-          <div key={anime.id} className="flex flex-wrap w-2/5 justify-center">
+          <div key={anime.id} className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900">
             <AnimeCard
               image={anime.attributes.posterImage.small}
               title={anime.attributes.canonicalTitle}
