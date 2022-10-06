@@ -3,7 +3,7 @@ import {
   AppShell,
   Navbar,
   Header,
-  Text,
+  // Text,
   MediaQuery,
   Burger,
   useMantineTheme,
@@ -18,9 +18,9 @@ import Home from "./pages/HomePage/Home";
 import Anime from "./pages/AnimePage/Anime";
 import Manga from "./pages/MangaPage/Manga";
 import About from "./pages/AboutPage/About";
+import "./App.css";
 
 // padding-bottom: calc(var(--mantine-footer-height, 0px) + 16px);
-// padding-right: calc(var(--mantine-aside-width, 0px) + 16px);
 export default function AppShellDemo() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -32,9 +32,9 @@ export default function AppShellDemo() {
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[0],
-          // paddingTop: calc(var(--mantine-header-height, 0px) + 16px),
-          // paddingLeft: "calc(var(--mantine-navbar-width, 0px) + 16px)",
-              
+          paddingRight: "calc(var(--mantine-aside-width, 0px) + 1px)",
+          paddingTop: "calc(var(--mantine-header-height, 0px) + 1px)",
+          paddingLeft: "calc(var(--mantine-navbar-width, 0px) + 1px)",
         },
       }}
       navbarOffsetBreakpoint="sm"

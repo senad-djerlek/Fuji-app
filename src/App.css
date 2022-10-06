@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -42,4 +42,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.rastojanja {
+  /* padding-top: calc(var(--mantine-header-height, 0px) + 1px);
+  padding-left: calc(var(--mantine-navbar-width, 0px) + 1px);
+  padding-bottom: calc(var(--mantine-footer-height, 0px) + 1px);
+  padding-right: calc(var(--mantine-aside-width, 0px) + 1px); */
+  padding: 0;
 }
