@@ -1,6 +1,6 @@
 function AnimeCard({ image, title }) {
   return (
-    <div className="group flex justify-center relative max-w-sm bg-black cursor-pointer rounded-lg shadow-md hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:group-hover:bg-gray-900">
+    <div className="group flex justify-center mt-10 relative max-w-sm bg-black cursor-pointer rounded-lg shadow-md hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:group-hover:bg-gray-900">
       <h1 className="absolute text-xl text-white top-2 z-10 opacity-0 delay-150 group-hover:opacity-100">
         {title}
       </h1>
