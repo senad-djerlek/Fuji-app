@@ -49,9 +49,7 @@ export default function AppShellDemo() {
         </Navbar>
       }
       footer={
-        <Footer className="h-fit">
           <FooterReal />
-        </Footer>
       }
       header={
         <Header height={70}>
