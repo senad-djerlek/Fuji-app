@@ -18,7 +18,7 @@ function Manga(){
     }, []);
 
     return (
-      <div className="flex flex-wrap gap-8 justify-center">
+      <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
         {manga.map((manga) => (
           <div key={manga.id} className="flex flex-wrap w-1/5 justify-center" onClick={() => {
             navigate(`${manga.id}`, {
@@ -29,7 +29,6 @@ function Manga(){
               }
             })
           }}>
-            <h1>Name</h1>
             <MangaCard
               image={manga.attributes.posterImage.small}
               title={manga.attributes.canonicalTitle}
