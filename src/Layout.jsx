@@ -18,7 +18,7 @@ import Home from "./pages/HomePage/Home";
 import Anime from "./pages/AnimePage/Anime";
 import Manga from "./pages/MangaPage/Manga";
 import About from "./pages/AboutPage/About";
-import "./App.css";
+import MangaInfo from "./pages/MangaPage/MangaInfo";
 
 export default function AppShellDemo() {
   const theme = useMantineTheme();
@@ -74,14 +74,13 @@ export default function AppShellDemo() {
         </Header>
       }
     >
-      <div className="md:pr-0">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="anime" element={<Anime />} />
-          <Route path="manga" element={<Manga />} />
-          <Route path="about" element={<About />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/"  element={<Home/>} />
+        <Route path="anime" element={<Anime/>} />
+        <Route path="manga" element={<Manga/>} />
+        <Route path="about" element={<About/>} />
+        <Route path="manga/:id" element={<MangaInfo/>} />
+      </Routes>
     </AppShell>
   );
 }
