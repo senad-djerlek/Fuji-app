@@ -7,7 +7,7 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
-  Footer,
+  // Footer,
 } from "@mantine/core";
 import Logo from "./img/fuji-logo.png";
 
@@ -20,7 +20,6 @@ import Manga from "./pages/MangaPage/Manga";
 import About from "./pages/AboutPage/About";
 import "./App.css";
 
-// padding-bottom: calc(var(--mantine-footer-height, 0px) + 16px);
 export default function AppShellDemo() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -32,9 +31,14 @@ export default function AppShellDemo() {
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[0],
-          paddingRight: "calc(var(--mantine-aside-width, 0px) + 1px)",
-          paddingTop: "calc(var(--mantine-header-height, 0px) + 1px)",
-          paddingLeft: "calc(var(--mantine-navbar-width, 0px) + 1px)",
+          paddingRight: "calc(var(--mantine-aside-width, 0px) + 0.1px)",
+          paddingTop: "calc(var(--mantine-header-height, 0px) + 0.1px)",
+          paddingLeft: "calc(var(--mantine-navbar-width, 0px) + 0.1px)",
+          paddingBottom:
+            "calc(var(--mantine-footer-height, 0px) + 1px) !important",
+          '@media (max-width: 766px)' : {
+            paddingRight: '0px'
+          }
         },
       }}
       navbarOffsetBreakpoint="sm"
@@ -48,9 +52,7 @@ export default function AppShellDemo() {
           <Sidebar />
         </Navbar>
       }
-      footer={
-          <FooterReal />
-      }
+      footer={<FooterReal />}
       header={
         <Header height={70}>
           <div
@@ -72,13 +74,14 @@ export default function AppShellDemo() {
         </Header>
       }
     >
-      {/* <Text>Resize app to see responsive navbar in action</Text> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="anime" element={<Anime />} />
-        <Route path="manga" element={<Manga />} />
-        <Route path="about" element={<About />} />
-      </Routes>
+      <div className="md:pr-0">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="anime" element={<Anime />} />
+          <Route path="manga" element={<Manga />} />
+          <Route path="about" element={<About />} />
+        </Routes>
+      </div>
     </AppShell>
   );
 }
