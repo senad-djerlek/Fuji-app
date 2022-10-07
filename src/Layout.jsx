@@ -3,7 +3,7 @@ import {
   AppShell,
   Navbar,
   Header,
-  Text,
+  // Text,
   MediaQuery,
   Burger,
   useMantineTheme,
