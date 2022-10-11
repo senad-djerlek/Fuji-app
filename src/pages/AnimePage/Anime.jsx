@@ -1,9 +1,11 @@
-import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { useState, useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
+import { useNavigate, Link, Navigate } from "react-router-dom";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import Loader from "../../components/scroll/Loader";
 import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 //style
 
 const GlobalStyle = createGlobalStyle`
@@ -29,6 +31,7 @@ const WrapperImage = styled.section`
 function Anime() {
   const [animes, setAnimes] = useState([]);
   const [offset, setOffset] = useState(0);
+  const navigate = useNavigate();
 
   async function getAnimes() {
     const res = await fetch(
@@ -48,33 +51,38 @@ function Anime() {
 
   return (
     <>
-      
       <GlobalStyle />
 
       <InfiniteScroll
         dataLength={animes.length}
         next={() => getAnimes(offset)}
         hasMore={true}
-        loader={<Loader className=" bg-dark"/>}
+        loader={<Loader className=" bg-dark" />}
       >
-    <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
-        
-
-        {animes.map((anime) => (
-        <div
-          key={anime.id}
-          className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
-        >
-          <AnimeCard
-            image={anime.attributes.posterImage.small}
-            title={anime.attributes.canonicalTitle}
-          />
+        <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
+          {animes.map((anime) => (
+            <div
+              key={anime.id}
+              className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
+              //context
+              onClick={() => {
+                navigate(`${anime.id}`, {
+                  state: {
+                    id: anime.id,
+                    image: anime.attributes.posterImage.small,
+                    title: anime.attributes.canonicalTitle,
+                  },
+                });
+              }}
+            >
+              <AnimeCard
+                image={anime.attributes.posterImage.small}
+                title={anime.attributes.canonicalTitle}
+              />
+            </div>
+          ))}
         </div>
-      ))}
-        
-    </div>
       </InfiniteScroll>
-
     </>
   );
 }
