@@ -4,7 +4,7 @@ import { FavoritesList } from "../../components/Context/Context"
 import { Link } from 'react-router-dom'
 
 export default function MangaInfo(){
-    const { addToFavorites } = useContext(FavoritesList)
+    const { addToFavorites, removeFromFav, favItems } = useContext(FavoritesList)
     const { state } = useLocation()
     const title = state.title
     const id = state.id
@@ -15,7 +15,21 @@ export default function MangaInfo(){
             <p>{title}</p>
             <img className="rounded-lg"src={image}/>
             <Link to='/manga'>
-            <button className="bg-gray-600 text-black font-bold py-2 px-4 mt-2 rounded-full border border-gray-900" onClick={() => addToFavorites(state)}>Add to favorites</button>
+            {favItems.find((el) => el.id === id) ? (
+          <button
+            className="bg-gray-600 text-black font-bold py-2 px-4 mt-2 rounded-full border border-gray-900"
+            onClick={() => removeFromFav(state.id, state.title)}
+          >
+            Remove from favorites
+          </button>
+        ) : (
+          <button
+            className="bg-gray-600 text-black font-bold py-2 px-4 mt-2 rounded-full border border-gray-900"
+            onClick={() => addToFavorites(state)}
+          >
+            Add to favorites
+          </button>
+        )}
             </Link>
         </div>
     )
