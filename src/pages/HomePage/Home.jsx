@@ -21,7 +21,7 @@ function Home(){
     }
 
     const getCategories=() => {
-      fetch("https://kitsu.io/api/edge/categories")
+      fetch("https://kitsu.io/api/edge/anime?filter[categories]=adventure")
       .then((res) => res.json())
       .then((json) => {
           setCategories(json.data)
@@ -47,16 +47,12 @@ function Home(){
             />
           ))}
         </Carousel>
-        
-          {/* {categories.map((el) => (
-            <div>
-              <h1>{el.attributes.title}</h1>
-              <Carousel>
-                {el.relationships.anime.links.related}
-              </Carousel>
-            </div>
-
-          ))} */}
+          {categories.map((el) => (
+              <HomePoster
+                title={el.attributes.canonicalTitle}
+                image={el.attributes.posterImage.small}
+              />
+          ))}
         
     </div>)
 }
