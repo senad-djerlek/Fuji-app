@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createGlobalStyle } from "styled-components";
-import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import Loader from "../../components/scroll/Loader";
-import styled from "styled-components";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 //style
@@ -19,50 +18,144 @@ body{
 }
 `;
 
-const WrapperImage = styled.section`
-  max-width: 70rem;
-  margin: 4rem auto;
-  display: grid;
-  grid-gap: 5em 3em;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-auto-rows: 300px;
-`;
-
 function Anime() {
   const [animes, setAnimes] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [value, setValue] = useState("");
+  const [category, setCategory] = useState("");
+  let kategorija = "";
+  let naziv = "";
+  let pomeraj = 0;
   const navigate = useNavigate();
 
   async function getAnimes() {
-    const res = await fetch(
-      `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${offset}`
-    );
+    // const res = await fetch(
+    // `https://kitsu.io/api/edge/anime?filter[categories]=scary&page[limit]=12&page[offset]=${pomeraj}`
+    // );
+
+    let res;
+    if (category.length === 0 && naziv.length === 0) {
+      console.log(category, kategorija, naziv);
+      res = await fetch(
+        `https://kitsu.io/api/edge/anime?&page[limit]=20&page[offset]=${pomeraj}`
+      );
+    } else {
+      console.log(category, kategorija, naziv);
+
+      if (naziv.length !== 0 && category.length === 0) {
+        res = await fetch(
+          `https://kitsu.io/api/edge/anime?filter[text]=${naziv}&page[limit]=20&page[offset]=${pomeraj}`
+        );
+      } else if (value.length === 0 && category.length !== 0) {
+        res = await fetch(
+          `https://kitsu.io/api/edge/anime?filter[categories]=${kategorija}&page[limit]=20&page[offset]=${pomeraj}`
+        );
+      } else {
+        res = await fetch(
+          `https://kitsu.io/api/edge/anime?filter[categories]=${kategorija}&filter[text]=${naziv}&page[limit]=20&page[offset]=${pomeraj}`
+        );
+      }
+    }
+
     const data = await res.json();
+    console.log(data);
     setAnimes((prevValue) => [...prevValue, ...data.data]);
   }
 
   useEffect(() => {
-    getAnimes(offset);
+    getAnimes();
   }, []);
 
   useEffect(() => {
-    setOffset(offset + 12);
+    setOffset(offset + 20);
+    console.log(category);
   }, [animes]);
 
+  pomeraj = offset;
+  naziv = value;
+  kategorija = category;
+
   return (
-    <>
+    <div className="bg-dark">
+      <div className="w-full flex justify-around">
+        <select
+          id="default"
+          className="bg-dark h-10 w-4/12 border border-white text-grayish rounded-lg my-auto"
+          onChange={(e) => {
+            kategorija = e.target.value;
+            setCategory(kategorija);
+            setAnimes([]);
+            pomeraj = 0;
+            setOffset(-12);
+            setValue(naziv);
+            getAnimes();
+          }}
+        >
+          <option selected>Choose a category</option>
+          <option value="adventure">Adventure</option>
+          <option value="action">Action</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="crime">Crmie</option>
+          <option value="drama">Drama</option>
+          <option value="romance">Romance</option>
+          <option value="supernatural">Supernatural</option>
+          <option value="magic">Magic</option>
+        </select>
+        <form
+          className="bg-dark flex justify-end m-12"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setValue(naziv);
+            setOffset(-12);
+            setAnimes([]);
+            pomeraj = 0;
+            getAnimes();
+          }}
+        >
+          <div className="relative">
+            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+              <svg
+                aria-hidden="true"
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="search"
+              className="block p-4 pl-10 w-55 text-sm text-gray-900 bg-dark rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search"
+              required=""
+              onChange={(e) => {
+                naziv = e.target.value;
+              }}
+            />
+          </div>
+        </form>
+      </div>
+      <hr className="text-white w-11/12 m-auto"></hr>
       <GlobalStyle />
 
       <InfiniteScroll
         dataLength={animes.length}
-        next={() => getAnimes(offset)}
+        next={() => getAnimes()}
         hasMore={true}
         loader={<Loader className=" bg-dark" />}
       >
         <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
           {animes.map((anime) => (
             <div
-              key={anime.id}
+              // key={anime.id}
               className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
               //context
               onClick={() => {
@@ -83,7 +176,7 @@ function Anime() {
           ))}
         </div>
       </InfiniteScroll>
-    </>
+    </div>
   );
 }
 
