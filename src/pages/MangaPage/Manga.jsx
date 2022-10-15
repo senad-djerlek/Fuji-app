@@ -67,7 +67,8 @@ function Manga(){
               state: {
                 id : manga.id,
                 image: manga.attributes.posterImage.small,
-                title: manga.attributes.canonicalTitle             
+                title: manga.attributes.canonicalTitle,
+                description: manga.attributes.description             
               }
             })
           }}>
