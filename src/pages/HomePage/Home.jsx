@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react'
 import HomePoster from '../../components/HomePoster/HomePoster'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import HomeRows from '../../components/HomeCategories/HomeCategories';
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 
@@ -87,9 +86,9 @@ function Home(){
             <h1 className='flex flex-start text-2xl ml-5 mt-5 text-white'>Adventure</h1>
           <div className='rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 m-3'>
           {categories.map((el) => (
-            <HomeRows
+            <img src={el.attributes.posterImage.small} 
             onClick={() => {
-              navigate(`anime/${el.id}/${el.attributes.canonicalTitle}`, {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
                   id: el.id,
                   image: el.attributes.posterImage.small,
@@ -98,33 +97,59 @@ function Home(){
                 }
             })
             }}
-            image={el.attributes.posterImage.small}
-            />
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"/>
           ))}
           </div>
 
           <h1 className='flex flex-start text-2xl ml-5 mt-5 text-white'>Romance</h1>
           <div className='rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 m-3'>
           {romance.map((el) => (
-            <HomeRows
-            image={el.attributes.posterImage.small}
-            />
+            <img src={el.attributes.posterImage.small} 
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description
+                }
+            })
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"/>
           ))}
           </div>
           <h1 className='flex flex-start text-2xl ml-5 mt-5 text-white'>Horror</h1>
           <div className='rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 m-3'>
           {horror.map((el) => (
-            <HomeRows
-            image={el.attributes.posterImage.small}
-            />
+            <img src={el.attributes.posterImage.small} 
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description
+                }
+            })
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"/>
           ))}
           </div>
           <h1 className='flex flex-start text-2xl ml-5 mt-5 text-white'>Action</h1>
           <div className='rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 ml-3'>
           {action.map((el) => (
-            <HomeRows
-            image={el.attributes.posterImage.small}
-            />
+            <img src={el.attributes.posterImage.small} 
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description
+                }
+            })
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"/>
           ))}
           </div>
         
