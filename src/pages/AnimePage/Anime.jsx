@@ -38,7 +38,9 @@ function Anime() {
       `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${offset}`
     );
     const data = await res.json();
-    setAnimes((prevValue) => [...prevValue, ...data.data]);
+    setAnimes((prevValue) => 
+      [...prevValue, ...data.data],
+      console.log(data.data));
   }
 
   useEffect(() => {
