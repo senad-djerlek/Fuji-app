@@ -12,7 +12,7 @@ export default function FavPage() {
                 <div>{el.title}</div>
                 <img src={el.image} className="rounded-lg"/>
                 <button 
-                onClick={() => removeFromFav(el.id)}>Remove from list</button>
+                onClick={() => removeFromFav(el.id, el.title)}>Remove from list</button>
             </div>
            ))}</div>)}
         </div>
