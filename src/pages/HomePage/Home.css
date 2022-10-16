@@ -1,7 +1,10 @@
+
 .rowPosters::-webkit-scrollbar {
-    display: none;
+    background: #343338;
+    height: 10px;
+    top: 5px;
 }
 
-.rowPosters2::-webkit-scrollbar {
-    display: none;
+.rowPosters::-webkit-scrollbar-thumb {
+    background: #212024;
 }
