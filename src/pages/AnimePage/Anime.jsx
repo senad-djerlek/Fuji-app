@@ -1,11 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { createGlobalStyle } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import Loader from "../../components/scroll/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-//style
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -27,26 +25,24 @@ function Anime() {
   let naziv = "";
   let pomeraj = 0;
   const navigate = useNavigate();
+  const {state} = useLocation();
+  // let prenetaKategorija = {state.category ? }
+  // state.category ? prenetaKategorija = state.category : '';
 
   async function getAnimes() {
-    // const res = await fetch(
-    // `https://kitsu.io/api/edge/anime?filter[categories]=scary&page[limit]=12&page[offset]=${pomeraj}`
-    // );
 
     let res;
-    if (category.length === 0 && naziv.length === 0) {
-      console.log(category, kategorija, naziv);
+    if (kategorija.length === 0 && naziv.length === 0) {
       res = await fetch(
         `https://kitsu.io/api/edge/anime?&page[limit]=20&page[offset]=${pomeraj}`
       );
     } else {
-      console.log(category, kategorija, naziv);
 
-      if (naziv.length !== 0 && category.length === 0) {
+      if (naziv.length !== 0 && kategorija.length === 0) {
         res = await fetch(
           `https://kitsu.io/api/edge/anime?filter[text]=${naziv}&page[limit]=20&page[offset]=${pomeraj}`
         );
-      } else if (value.length === 0 && category.length !== 0) {
+      } else if (value.length === 0 && kategorija.length !== 0) {
         res = await fetch(
           `https://kitsu.io/api/edge/anime?filter[categories]=${kategorija}&page[limit]=20&page[offset]=${pomeraj}`
         );
@@ -58,29 +54,32 @@ function Anime() {
     }
 
     const data = await res.json();
-    console.log(data);
     setAnimes((prevValue) => [...prevValue, ...data.data]);
   }
 
   useEffect(() => {
+    if(state){
+      setCategory(state.category);
+      kategorija = state.category;
+    }
     getAnimes();
   }, []);
 
   useEffect(() => {
     setOffset(offset + 20);
-    console.log(category);
   }, [animes]);
 
   pomeraj = offset;
   naziv = value;
   kategorija = category;
+  console.log(state);
 
   return (
     <div className="bg-dark">
       <div className="w-full flex justify-around">
         <select
           id="default"
-          className="bg-dark h-10 w-4/12 border border-white text-grayish rounded-lg my-auto"
+          className="bg-dark h-10 w-4/12 border border-white text-grayish rounded-lg my-auto ml-5"
           onChange={(e) => {
             kategorija = e.target.value;
             setCategory(kategorija);
@@ -100,6 +99,7 @@ function Anime() {
           <option value="romance">Romance</option>
           <option value="supernatural">Supernatural</option>
           <option value="magic">Magic</option>
+          <option value="horror">Horror</option>
         </select>
         <form
           className="bg-dark flex justify-end m-12"
@@ -112,7 +112,7 @@ function Anime() {
             getAnimes();
           }}
         >
-          <div className="relative">
+          <div className="relative w-9/11">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
                 aria-hidden="true"
@@ -123,9 +123,9 @@ function Anime() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ></path>
               </svg>
@@ -133,7 +133,7 @@ function Anime() {
             <input
               type="search"
               id="search"
-              className="block p-4 pl-10 w-55 text-sm text-gray-900 bg-dark rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block h-10 pl-10 w-full text-sm text-gray-900 bg-dark rounded-lg border border-gray-300"
               placeholder="Search"
               required=""
               onChange={(e) => {
@@ -155,7 +155,7 @@ function Anime() {
         <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
           {animes.map((anime) => (
             <div
-              // key={anime.id}
+              key={anime.id}
               className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
               //context
               onClick={() => {

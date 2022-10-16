@@ -3,11 +3,9 @@ import {
   AppShell,
   Navbar,
   Header,
-  // Text,
   MediaQuery,
   Burger,
   useMantineTheme,
-  // Footer,
 } from "@mantine/core";
 import Logo from "./img/fuji-logo.png";
 
@@ -20,7 +18,6 @@ import Manga from "./pages/MangaPage/Manga";
 import About from "./pages/AboutPage/About";
 import AnimeInfo from "./pages/AnimePage/AnimeInfo"
 import MangaInfo from "./pages/MangaPage/MangaInfo";
-import AnimeInfo from "./pages/AnimePage/AnimeInfo"
 import FavPage from "./pages/FavoritePage/FavPage";
 
 
