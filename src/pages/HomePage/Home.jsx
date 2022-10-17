@@ -11,6 +11,7 @@ function Home() {
   const [romance, setRomance] = useState([]);
   const [horror, setHorror] = useState([]);
   const [action, setAction] = useState([]);
+  const [trendingManga, setTrendingManga] = useState([]);
   const navigate = useNavigate();
 
   const getTrending = () => {
@@ -31,8 +32,17 @@ function Home() {
       });
   };
 
+  const getTrendingManga = () => {
+    fetch("https://kitsu.io/api/edge/manga")
+      .then((res) => res.json())
+      .then((json) => {
+        setTrendingManga(json.data);
+        console.log(json.data);
+      });
+  };
+
   const getAction = () => {
-    fetch("https://kitsu.io/api/edge/anime?filter[categories]=action")
+    fetch("https://kitsu.io/api/edge/manga?filter[categories]=action")
       .then((res) => res.json())
       .then((json) => {
         setAction(json.data);
@@ -58,16 +68,26 @@ function Home() {
       });
   };
 
+
+
   useEffect(() => {
     getTrending();
     getCategories();
     getRomance();
     getHorror();
     getAction();
+    getTrendingManga();
   }, []);
 
   const clickAnimeCategoryHandler = (cat) => {
     navigate(`/anime`, {
+      state: {
+        category: cat
+      },
+    });
+  }
+  const clickMangaCategoryHandler = (cat) => {
+    navigate(`/manga`, {
       state: {
         category: cat
       },
@@ -87,6 +107,11 @@ function Home() {
           <HomePoster
             image={el.attributes.coverImage.large}
             title={el.attributes.canonicalTitle}
+            episodes={el.attributes.episodeCount}
+            rating={el.attributes.averageRating}
+            description={el.attributes.description}
+            posterImage={el.attributes.posterImage.small}
+            id={el.id}
           />
         ))}
       </Carousel>
@@ -159,15 +184,37 @@ function Home() {
         ))}
       </div>
       <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
-        clickAnimeCategoryHandler("action")
+        clickMangaCategoryHandler("adventure")
       }}>
-        Action</h1>
+        Adventure Manga</h1>
+      <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 ml-3">
+        {trendingManga.map((el) => (
+          <img
+            src={el.attributes.posterImage.small}
+            onClick={() => {
+              navigate(`/manga/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description,
+                },
+              });
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"
+          />
+        ))}
+      </div>
+      <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
+        clickMangaCategoryHandler("action")
+      }}>
+        Action Manga</h1>
       <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 ml-3">
         {action.map((el) => (
           <img
             src={el.attributes.posterImage.small}
             onClick={() => {
-              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+              navigate(`/manga/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
                   id: el.id,
                   image: el.attributes.posterImage.small,
