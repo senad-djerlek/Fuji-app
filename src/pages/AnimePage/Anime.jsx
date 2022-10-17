@@ -26,8 +26,6 @@ function Anime() {
   let pomeraj = 0;
   const navigate = useNavigate();
   const {state} = useLocation();
-  // let prenetaKategorija = {state.category ? }
-  // state.category ? prenetaKategorija = state.category : '';
 
   async function getAnimes() {
 
@@ -54,7 +52,9 @@ function Anime() {
     }
 
     const data = await res.json();
-    setAnimes((prevValue) => [...prevValue, ...data.data]);
+    setAnimes((prevValue) => 
+      [...prevValue, ...data.data],
+      console.log(data.data));
   }
 
   useEffect(() => {
@@ -165,6 +165,7 @@ function Anime() {
                     image: anime.attributes.posterImage.small,
                     title: anime.attributes.canonicalTitle,
                     description: anime.attributes.description,
+                    type: anime.type,
                   },
                 });
               }}

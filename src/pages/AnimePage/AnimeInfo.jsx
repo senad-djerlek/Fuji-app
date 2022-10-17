@@ -9,52 +9,40 @@ export default function AnimeInfo() {
   const title = state.title;
   const id = state.id;
   const image = state.image;
-  const description = state.description
+  const description = state.description;
   const [exist, setExist] = useState(1);
-  // if(favItems.length === 0){
-  //     setExist(false);
-  // }
-  // else{
-  //     if(favItems.find((el) => {
-  //         if(el.id === id){
-  //             return true;
-  //         }
-  //     })=== true){
-  //         setExist(true)
-  //     }
-  //     else{
-  //         setExist(false)
-  //     }
-  // }
-  console.log(favItems.find((el) => el.id === state.id));
 
   return (
-    <div className="flex flex-row justify-center items-start w-full h-1/2">
+    <div className="flex flex-row justify-center items-start w-full h-full bg-dark text-white">
       <div className="flex flex-col w-1/4 justify-center items-center pt-4">
-      <img className="rounded-lg w-40 cursor-pointer" src={image} />
-      <p>{title}</p></div>
-      <div className="flex flex-col w-3/4 pt-4 gap-5 justify-between h-full">
-      <div><h4>{description}</h4></div>
-      <div><Link to="/anime">
-        {favItems.find((el) => el.id === id) ? (
-          <button
-            className="bg-blue-500 hover:bg-blue-400 text-black font-bold py-2 px-4 border-4 border-blue-600 hover:border-blue-500 rounded"
-            onClick={() => removeFromFav(state.id, state.title)}
-          >
-            Remove from favorites
-          </button>
-        ) : (
-          <button
-            className="bg-blue-500 hover:bg-blue-400 text-black font-bold py-2 px-4 border-4 border-blue-600 hover:border-blue-500 rounded"
-            onClick={() => addToFavorites(state)}
-          >
-            Add to favorites
-          </button>
-        )}
-      </Link></div>
-      
+        <img className="rounded-lg w-64 cursor-pointer" src={image} />
       </div>
-      
+      <div className="flex flex-col w-3/4 pt-4 gap-5 h-full">
+        <div>
+          <p className="text-4xl font-bold">{title}</p>
+          <br />
+          <h4>{description}</h4>
+        </div>
+        <div>
+          <Link to="/anime">
+            {favItems.find((el) => el.id === id) ? (
+              <button
+                className="bg-transparent py-2 px-4 font-semibold border hover:scale-105 hover:border-2 transition ease-out rounded"
+                onClick={() => removeFromFav(state.id, state.title)}
+              >
+                Remove from favorites
+              </button>
+            ) : (
+              <button
+                className="bg-transparent py-2 px-4 font-semibold border hover:scale-105 hover:border-2 transition ease-out rounded"
+                onClick={() => addToFavorites(state)}
+              >
+                Add to favorites
+              </button>
+            )}
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
