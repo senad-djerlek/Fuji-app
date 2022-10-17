@@ -26,8 +26,6 @@ function Anime() {
   let pomeraj = 0;
   const navigate = useNavigate();
   const {state} = useLocation();
-  // let prenetaKategorija = {state.category ? }
-  // state.category ? prenetaKategorija = state.category : '';
 
   async function getAnimes() {
 
