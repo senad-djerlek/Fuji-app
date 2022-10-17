@@ -68,7 +68,8 @@ function Manga(){
                 id : manga.id,
                 image: manga.attributes.posterImage.small,
                 title: manga.attributes.canonicalTitle,
-                description: manga.attributes.description             
+                description: manga.attributes.description,
+                type: manga.type,            
               }
             })
           }}>

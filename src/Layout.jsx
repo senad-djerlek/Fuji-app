@@ -83,8 +83,8 @@ export default function AppShellDemo() {
         <Route path="manga" element={<Manga/>} />
         <Route path="about" element={<About/>} />
         <Route path="favorites" element={<FavPage/>} />
-        <Route path="manga/:title/:id" element={<MangaInfo/>} />
-        <Route path="anime/:title/:id" element={<AnimeInfo/>} />
+        <Route path="manga/:id/:title" element={<MangaInfo/>} />
+        <Route path="anime/:id/:title" element={<AnimeInfo/>} />
       </Routes>
     </AppShell>
   );

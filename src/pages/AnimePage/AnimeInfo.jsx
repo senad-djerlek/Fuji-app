@@ -10,6 +10,7 @@ export default function AnimeInfo() {
   const id = state.id;
   const image = state.image;
   const description = state.description
+  const type = state.type
   const [exist, setExist] = useState(1);
   // if(favItems.length === 0){
   //     setExist(false);
@@ -36,7 +37,7 @@ export default function AnimeInfo() {
       <div className="flex flex-col w-3/4 pt-4 gap-5 h-full">
       <div><h4>{description}</h4></div>
       <div><Link to="/anime">
-        {favItems.find((el) => el.id === id) ? (
+        {favItems.find((el) => el.id === id && el.title === title) ? (
           <button
             className="bg-blue-500 hover:bg-blue-400 text-black font-bold py-2 px-4 border-4 border-blue-600 hover:border-blue-500 rounded"
             onClick={() => removeFromFav(state.id, state.title)}
