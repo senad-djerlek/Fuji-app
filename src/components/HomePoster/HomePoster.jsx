@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
-export default function HomePoster({image, title, episodes, rating, description, id}) {
+export default function HomePoster({image, posterImage, title, episodes, rating, description, id}) {
     const navigate = useNavigate();
     
     return (
@@ -9,10 +9,10 @@ export default function HomePoster({image, title, episodes, rating, description,
         onClick={() => {
             navigate(`anime/${title}/${id}`, {
               state: {
-                id: {id},
-                image: {image},
-                title: {title},
-                description: {description},
+                id: id,
+                image: posterImage,
+                title: title,
+                description: description,
               },
             });
           }}>

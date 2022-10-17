@@ -33,7 +33,7 @@ function Home() {
   };
 
   const getTrendingManga = () => {
-    fetch("https://kitsu.io/api/edge/trending/manga")
+    fetch("https://kitsu.io/api/edge/manga")
       .then((res) => res.json())
       .then((json) => {
         setTrendingManga(json.data);
@@ -86,6 +86,13 @@ function Home() {
       },
     });
   }
+  const clickMangaCategoryHandler = (cat) => {
+    navigate(`/manga`, {
+      state: {
+        category: cat
+      },
+    });
+  }
 
   return (
     <div className="bg-dark">
@@ -103,6 +110,7 @@ function Home() {
             episodes={el.attributes.episodeCount}
             rating={el.attributes.averageRating}
             description={el.attributes.description}
+            posterImage={el.attributes.posterImage.small}
             id={el.id}
           />
         ))}
@@ -176,9 +184,9 @@ function Home() {
         ))}
       </div>
       <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
-        clickAnimeCategoryHandler("action")
+        clickMangaCategoryHandler("adventure")
       }}>
-        Trending Manga</h1>
+        Adventure Manga</h1>
       <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 ml-3">
         {trendingManga.map((el) => (
           <img
@@ -198,7 +206,7 @@ function Home() {
         ))}
       </div>
       <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
-        clickAnimeCategoryHandler("action")
+        clickMangaCategoryHandler("action")
       }}>
         Action Manga</h1>
       <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 ml-3">
