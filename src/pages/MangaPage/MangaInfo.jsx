@@ -11,12 +11,12 @@ export default function MangaInfo(){
     const image = state.image
     const description = state.description
     return (
-        <div className="flex flex-row justify-center items-start w-full h-1/2">
+        <div className="flex flex-row justify-center items-start w-full h-full bg-dark text-white">
           <div className="flex flex-col w-1/4 justify-center items-center pt-4">
-            <img className="rounded-lg w-40 cursor-pointer"src={image}/>
+            <img className="rounded-lg w-40 cursor-pointer" src={image}/>
             <p>{title}</p>
           </div>
-            <div className='flex flex-col w-3/4 pt-4 gap-5 justify-between h-full'>
+            <div className='flex flex-col w-3/4 pt-4 gap-5 h-full'>
             <div><h4>{description}</h4></div>
             <div><Link to='/manga'>
             {favItems.find((el) => el.id === id) ? (

@@ -1,60 +1,187 @@
-import {useEffect, useState} from 'react'
-import HomePoster from '../../components/HomePoster/HomePoster'
-import { Carousel } from 'react-responsive-carousel';
+import { useEffect, useState } from "react";
+import HomePoster from "../../components/HomePoster/HomePoster";
+import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import HomeCategories from '../../components/HomeCategories/HomeCategories'
+import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
+function Home() {
+  const [trending, setTrending] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [romance, setRomance] = useState([]);
+  const [horror, setHorror] = useState([]);
+  const [action, setAction] = useState([]);
+  const navigate = useNavigate();
 
-
-function Home(){
-    
-    const [trending, setTrending] = useState([])
-    const [categories, setCategories] = useState([])
-
-    const getTrending=() => {
+  const getTrending = () => {
     fetch("https://kitsu.io/api/edge/trending/anime")
-    .then((res) => res.json())
-    .then((json) => {
-        setTrending(json.data)
-        console.log(json.data)
-    })
-    }
-
-    const getCategories=() => {
-      fetch("https://kitsu.io/api/edge/anime?filter[categories]=adventure")
       .then((res) => res.json())
       .then((json) => {
-          setCategories(json.data)
-          console.log(json.data)
-      })
-      }
-    
-    useEffect(() => {
-        getTrending();
-        getCategories();
-},[])
+        setTrending(json.data);
+        console.log(json.data);
+      });
+  };
 
-    return(<div>
-        <Carousel
+  const getCategories = () => {
+    fetch("https://kitsu.io/api/edge/anime?filter[categories]=adventure")
+      .then((res) => res.json())
+      .then((json) => {
+        setCategories(json.data);
+        console.log(json.data);
+      });
+  };
+
+  const getAction = () => {
+    fetch("https://kitsu.io/api/edge/anime?filter[categories]=action")
+      .then((res) => res.json())
+      .then((json) => {
+        setAction(json.data);
+        console.log(json.data);
+      });
+  };
+
+  const getRomance = () => {
+    fetch("https://kitsu.io/api/edge/anime?filter[categories]=romance")
+      .then((res) => res.json())
+      .then((json) => {
+        setRomance(json.data);
+        console.log(json.data);
+      });
+  };
+
+  const getHorror = () => {
+    fetch("https://kitsu.io/api/edge/anime?filter[categories]=horror")
+      .then((res) => res.json())
+      .then((json) => {
+        setHorror(json.data);
+        console.log(json.data);
+      });
+  };
+
+  useEffect(() => {
+    getTrending();
+    getCategories();
+    getRomance();
+    getHorror();
+    getAction();
+  }, []);
+
+  const clickAnimeCategoryHandler = (cat) => {
+    navigate(`/anime`, {
+      state: {
+        category: cat
+      },
+    });
+  }
+
+  return (
+    <div className="bg-dark">
+      <Carousel
+        className="shadow-xl"
         infiniteLoop="true"
         emulateTouch="true"
         autoPlay="true"
-        interval={5000}>
-          {trending.slice(0,5).map((el) => (
-            <HomePoster
+        interval={5000}
+      >
+        {trending.slice(0, 5).map((el) => (
+          <HomePoster
             image={el.attributes.coverImage.large}
             title={el.attributes.canonicalTitle}
-            />
-          ))}
-        </Carousel>
-          {categories.map((el) => (
-              <HomePoster
-                title={el.attributes.canonicalTitle}
-                image={el.attributes.posterImage.small}
-              />
-          ))}
-        
-    </div>)
+          />
+        ))}
+      </Carousel>
+      <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
+        clickAnimeCategoryHandler("action")
+      }}>
+        Adventure
+      </h1>
+      <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 m-3">
+        {categories.map((el) => (
+          <img
+            src={el.attributes.posterImage.small}
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description,
+                },
+              });
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"
+          />
+        ))}
+      </div>
+
+      <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
+        clickAnimeCategoryHandler("action")
+      }}>
+        Romance</h1>
+      <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 m-3">
+        {romance.map((el) => (
+          <img
+            src={el.attributes.posterImage.small}
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description,
+                },
+              });
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"
+          />
+        ))}
+      </div>
+      <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
+        clickAnimeCategoryHandler("horror")
+      }}>
+        Horror</h1>
+      <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 m-3">
+        {horror.map((el) => (
+          <img
+            src={el.attributes.posterImage.small}
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description,
+                },
+              });
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"
+          />
+        ))}
+      </div>
+      <h1 className="flex flex-start text-2xl ml-5 mt-5 text-white cursor-pointer" onClick={() => {
+        clickAnimeCategoryHandler("action")
+      }}>
+        Action</h1>
+      <div className="rowPosters flex flex-row overflow-y-hidden overflow-x-scroll p-5 ml-3">
+        {action.map((el) => (
+          <img
+            src={el.attributes.posterImage.small}
+            onClick={() => {
+              navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
+                state: {
+                  id: el.id,
+                  image: el.attributes.posterImage.small,
+                  title: el.attributes.canonicalTitle,
+                  description: el.attributes.description,
+                },
+              });
+            }}
+            className="w-full shadow-xl mr-5 hover:scale-110 object-contain h-52 transition-transform duration-400 cursor-pointer"
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Home;
