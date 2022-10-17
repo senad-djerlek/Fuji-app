@@ -19,6 +19,7 @@ import Anime from "./pages/AnimePage/Anime";
 import Manga from "./pages/MangaPage/Manga";
 import About from "./pages/AboutPage/About";
 import MangaInfo from "./pages/MangaPage/MangaInfo";
+import AnimeInfo from "./pages/AnimePage/AnimeInfo";
 import FavPage from "./pages/FavoritePage/FavPage";
 
 export default function AppShellDemo() {
@@ -82,6 +83,7 @@ export default function AppShellDemo() {
         <Route path="about" element={<About/>} />
         <Route path="favorites" element={<FavPage/>} />
         <Route path="manga/:id" element={<MangaInfo/>} />
+        <Route path="anime/:id" element={<AnimeInfo/>} />
       </Routes>
     </AppShell>
   );
