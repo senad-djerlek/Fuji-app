@@ -18,6 +18,15 @@ function Home() {
     fetch("https://kitsu.io/api/edge/trending/anime")
       .then((res) => res.json())
       .then((json) => {
+        setTrending(json.data);
+        console.log(json.data);
+      });
+  };
+
+  const getCategories = () => {
+    fetch("https://kitsu.io/api/edge/anime?filter[categories]=adventure")
+      .then((res) => res.json())
+      .then((json) => {
         setCategories(json.data);
         console.log(json.data);
       });
@@ -98,6 +107,11 @@ function Home() {
           <HomePoster
             image={el.attributes.coverImage.large}
             title={el.attributes.canonicalTitle}
+            episodes={el.attributes.episodeCount}
+            rating={el.attributes.averageRating}
+            description={el.attributes.description}
+            posterImage={el.attributes.posterImage.small}
+            id={el.id}
           />
         ))}
       </Carousel>
