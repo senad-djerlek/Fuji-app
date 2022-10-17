@@ -54,7 +54,9 @@ function Anime() {
     }
 
     const data = await res.json();
-    setAnimes((prevValue) => [...prevValue, ...data.data]);
+    setAnimes((prevValue) => 
+      [...prevValue, ...data.data],
+      console.log(data.data));
   }
 
   useEffect(() => {
