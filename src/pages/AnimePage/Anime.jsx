@@ -25,24 +25,20 @@ function Anime() {
   let naziv = "";
   let pomeraj = 0;
   const navigate = useNavigate();
-  const {state} = useLocation();
-  // let prenetaKategorija = {state.category ? }
-  // state.category ? prenetaKategorija = state.category : '';
+  const { state } = useLocation();
 
   async function getAnimes() {
-
     let res;
     if (kategorija.length === 0 && naziv.length === 0) {
       res = await fetch(
         `https://kitsu.io/api/edge/anime?&page[limit]=20&page[offset]=${pomeraj}`
       );
     } else {
-
       if (naziv.length !== 0 && kategorija.length === 0) {
         res = await fetch(
           `https://kitsu.io/api/edge/anime?filter[text]=${naziv}&page[limit]=20&page[offset]=${pomeraj}`
         );
-      } else if (value.length === 0 && kategorija.length !== 0) {
+      } else if (naziv.length === 0 && kategorija.length !== 0) {
         res = await fetch(
           `https://kitsu.io/api/edge/anime?filter[categories]=${kategorija}&page[limit]=20&page[offset]=${pomeraj}`
         );
@@ -54,13 +50,11 @@ function Anime() {
     }
 
     const data = await res.json();
-    setAnimes((prevValue) => 
-      [...prevValue, ...data.data],
-      console.log(data.data));
+    setAnimes((prevValue) => [...prevValue, ...data.data]);
   }
 
   useEffect(() => {
-    if(state){
+    if (state) {
       setCategory(state.category);
       kategorija = state.category;
     }
@@ -74,7 +68,6 @@ function Anime() {
   pomeraj = offset;
   naziv = value;
   kategorija = category;
-  console.log(state);
 
   return (
     <div className="bg-dark">
@@ -167,6 +160,7 @@ function Anime() {
                     image: anime.attributes.posterImage.small,
                     title: anime.attributes.canonicalTitle,
                     description: anime.attributes.description,
+                    type: anime.type,
                   },
                 });
               }}

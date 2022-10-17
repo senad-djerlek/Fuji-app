@@ -16,10 +16,10 @@ import Home from "./pages/HomePage/Home";
 import Anime from "./pages/AnimePage/Anime";
 import Manga from "./pages/MangaPage/Manga";
 import About from "./pages/AboutPage/About";
-import AnimeInfo from "./pages/AnimePage/AnimeInfo"
 import MangaInfo from "./pages/MangaPage/MangaInfo";
+import AnimeInfo from "./pages/AnimePage/AnimeInfo";
 import FavPage from "./pages/FavoritePage/FavPage";
-
+import { Link } from "react-router-dom"
 
 export default function AppShellDemo() {
   const theme = useMantineTheme();
@@ -69,8 +69,8 @@ export default function AppShellDemo() {
                 mr="xl"
               />
             </MediaQuery>
-            <img src={Logo} alt="" className="w-9 h-9 lg:ml-3 sm:ml-5" />
-            <h1 className="text-white text-3xl font-bold pl-3">Fuji</h1>
+            <Link to="/"><img src={Logo} alt="" className="w-9 h-9 lg:ml-3 sm:ml-5 cursor-pointer" /></Link>
+            <Link to="/"><h1 className="text-white text-3xl font-bold pl-3 cursor-pointer">Fuji</h1></Link>
           </div>
         </Header>
       }
@@ -81,8 +81,8 @@ export default function AppShellDemo() {
         <Route path="manga" element={<Manga/>} />
         <Route path="about" element={<About/>} />
         <Route path="favorites" element={<FavPage/>} />
-        <Route path="manga/:title/:id" element={<MangaInfo/>} />
-        <Route path="anime/:title/:id" element={<AnimeInfo/>} />
+        <Route path="manga/:id/:title" element={<MangaInfo/>} />
+        <Route path="anime/:id/:title" element={<AnimeInfo/>} />
       </Routes>
     </AppShell>
   );
