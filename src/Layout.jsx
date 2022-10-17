@@ -3,11 +3,9 @@ import {
   AppShell,
   Navbar,
   Header,
-  // Text,
   MediaQuery,
   Burger,
   useMantineTheme,
-  // Footer,
 } from "@mantine/core";
 import Logo from "./img/fuji-logo.png";
 
