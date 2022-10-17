@@ -167,6 +167,7 @@ function Anime() {
                     image: anime.attributes.posterImage.small,
                     title: anime.attributes.canonicalTitle,
                     description: anime.attributes.description,
+                    type: anime.type,
                   },
                 });
               }}
