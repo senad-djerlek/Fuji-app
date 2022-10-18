@@ -3,8 +3,6 @@ import Tarikimg from '../../img/Tarik.png'
 import Farisimg from '../../img/Faris.png'
 import Ademimg from '../../img/Adem.png'
 import Amirimg from '../../img/Amir.png'
-import CV from '../../img/CV.png'
-import Github from '../../img/Github.png'
 
 function About() {
   return (
