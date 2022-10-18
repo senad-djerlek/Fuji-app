@@ -17,7 +17,6 @@ body{
 `;
 
 function Anime() {
-  let hasMore;
   const [animes, setAnimes] = useState([]);
   const [offset, setOffset] = useState(0);
   const [value, setValue] = useState("");
@@ -27,7 +26,10 @@ function Anime() {
   let pomeraj = 0;
   const navigate = useNavigate();
   const { state } = useLocation();
-  // const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [promena, setPromena] = useState(true);
+
+  let data;
 
   async function getAnimes() {
     let res;
@@ -51,15 +53,13 @@ function Anime() {
       }
     }
 
-    const data = await res.json();
+    data = await res.json();
     setAnimes((prevValue) => [...prevValue, ...data.data]);
-    if(data.length === 0){
-      // setHasMore(false);
-      hasMore=false;
-    }
-    else{
-      hasMore=true;
-      // setHasMore(true);
+    // console.log(data);
+    if (data.data.length === 0) {
+      setPromena(false);
+    } else {
+      setPromena(true);
     }
   }
 
@@ -74,6 +74,12 @@ function Anime() {
   useEffect(() => {
     setOffset(offset + 20);
   }, [animes]);
+
+  useEffect(() => {
+    {
+      promena === true ? setHasMore(true) : setHasMore(false);
+    }
+  }, [promena]);
 
   pomeraj = offset;
   naziv = value;
@@ -166,7 +172,7 @@ function Anime() {
         <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
           {animes.map((anime) => (
             <div
-              key={anime.id}
+              // key={anime.id}
               className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
               //context
               onClick={() => {
@@ -181,6 +187,17 @@ function Anime() {
                 });
               }}
             >
+              {/* <div>
+                <button
+                  className="fixed z-90 bottom-8 bg-lightred right-8 border-0 w-16 h-16 rounded-full drop-shadow-md bg-indigo-500 text-white text-3xl font-bold"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  &uarr;
+                </button>
+              </div> */}
               <AnimeCard
                 image={anime.attributes.posterImage.small}
                 title={anime.attributes.canonicalTitle}
