@@ -19,7 +19,6 @@ function Home() {
       .then((res) => res.json())
       .then((json) => {
         setTrending(json.data);
-        console.log(json.data);
       });
   };
 
@@ -28,7 +27,6 @@ function Home() {
       .then((res) => res.json())
       .then((json) => {
         setCategories(json.data);
-        console.log(json.data);
       });
   };
 
@@ -37,7 +35,6 @@ function Home() {
       .then((res) => res.json())
       .then((json) => {
         setTrendingManga(json.data);
-        console.log(json.data);
       });
   };
 
@@ -46,7 +43,6 @@ function Home() {
       .then((res) => res.json())
       .then((json) => {
         setAction(json.data);
-        console.log(json.data);
       });
   };
 
@@ -55,7 +51,6 @@ function Home() {
       .then((res) => res.json())
       .then((json) => {
         setRomance(json.data);
-        console.log(json.data);
       });
   };
 
@@ -64,7 +59,6 @@ function Home() {
       .then((res) => res.json())
       .then((json) => {
         setHorror(json.data);
-        console.log(json.data);
       });
   };
 
@@ -124,6 +118,7 @@ function Home() {
         {categories.map((el) => (
           <img
             src={el.attributes.posterImage.small}
+            alt=''
             onClick={() => {
               navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
@@ -147,6 +142,7 @@ function Home() {
         {romance.map((el) => (
           <img
             src={el.attributes.posterImage.small}
+            alt=''
             onClick={() => {
               navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
@@ -169,6 +165,7 @@ function Home() {
         {horror.map((el) => (
           <img
             src={el.attributes.posterImage.small}
+            alt=''
             onClick={() => {
               navigate(`/anime/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
@@ -191,6 +188,7 @@ function Home() {
         {trendingManga.map((el) => (
           <img
             src={el.attributes.posterImage.small}
+            alt=''
             onClick={() => {
               navigate(`/manga/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
@@ -213,6 +211,7 @@ function Home() {
         {action.map((el) => (
           <img
             src={el.attributes.posterImage.small}
+            alt=''
             onClick={() => {
               navigate(`/manga/${el.id}/${el.attributes.canonicalTitle}`, {
                 state: {
