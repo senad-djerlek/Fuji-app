@@ -6,6 +6,7 @@ import Loader from "../../components/scroll/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ToTop from "../../components/ToTop/ToTop";
 
+
 const GlobalStyle = createGlobalStyle`
 *{
   margin: 0;
@@ -146,7 +147,7 @@ function Anime() {
             <input
               type="search"
               id="search"
-              className="block h-10 pl-10 w-full text-sm text-gray-900 border-white bg-dark rounded-lg border border-gray-300"
+              className="block h-10 pl-10 w-full text-sm text-gray-900 border-white text-white bg-dark rounded-lg border border-gray-300"
               placeholder="Search"
               required=""
               onChange={(e) => {
