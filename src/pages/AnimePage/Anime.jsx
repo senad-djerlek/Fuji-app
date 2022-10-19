@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import Loader from "../../components/scroll/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
+import ToTop from "../../components/ToTop/ToTop";
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -55,7 +56,6 @@ function Anime() {
 
     data = await res.json();
     setAnimes((prevValue) => [...prevValue, ...data.data]);
-    // console.log(data);
     if (data.data.length === 0) {
       setPromena(false);
     } else {
@@ -68,6 +68,7 @@ function Anime() {
       setCategory(state.category);
       kategorija = state.category;
     }
+    window.scrollTo({top: 0});
     getAnimes();
   }, []);
 
@@ -76,10 +77,10 @@ function Anime() {
   }, [animes]);
 
   useEffect(() => {
-    {
       promena === true ? setHasMore(true) : setHasMore(false);
-    }
   }, [promena]);
+
+  
 
   pomeraj = offset;
   naziv = value;
@@ -169,10 +170,11 @@ function Anime() {
           </p>
         }
       >
-        <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
+        <div className="flex flex-wrap gap-8 justify-center bg-dark py-10 z-1">
+            <ToTop/>
           {animes.map((anime) => (
             <div
-              // key={anime.id}
+              key={anime.id}
               className="flex flex-wrap w-1/5 justify-center hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
               //context
               onClick={() => {
@@ -187,17 +189,8 @@ function Anime() {
                 });
               }}
             >
-              {/* <div>
-                <button
-                  className="fixed z-90 bottom-8 bg-lightred right-8 border-0 w-16 h-16 rounded-full drop-shadow-md bg-indigo-500 text-white text-3xl font-bold"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                >
-                  &uarr;
-                </button>
-              </div> */}
+              <div>
+              </div>
               <AnimeCard
                 image={anime.attributes.posterImage.small}
                 title={anime.attributes.canonicalTitle}

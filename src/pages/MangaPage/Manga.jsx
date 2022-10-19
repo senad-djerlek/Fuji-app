@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../components/scroll/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { createGlobalStyle } from "styled-components";
+import ToTop from "../../components/ToTop/ToTop";
 
 //style
 
@@ -28,6 +29,8 @@ function Manga() {
   let pomeraj = 0;
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [hasMore, setHasMore] = useState(true);
+  const [promena, setPromena] = useState(true);
 
   async function getManga() {
     let res;
@@ -53,6 +56,11 @@ function Manga() {
     }
     const data = await res.json();
     setManga((prevValue) => [...prevValue, ...data.data]);
+    if (data.data.length === 0) {
+      setPromena(false);
+    } else {
+      setPromena(true);
+    }
   }
 
   useEffect(() => {
@@ -60,8 +68,13 @@ function Manga() {
       setCategory(state.category);
       kategorija = state.category;
     }
+    window.scrollTo({top: 0});
     getManga();
   }, []);
+
+  useEffect(() => {
+      promena === true ? setHasMore(true) : setHasMore(false);
+  }, [promena]);
 
   useEffect(() => {
     setOffset(offset + 20);
@@ -146,10 +159,16 @@ function Manga() {
 
       <InfiniteScroll
         dataLength={manga.length}
-        next={() => getManga()}
-        hasMore={true}
+        next={getManga}
+        hasMore={hasMore}
         loader={<Loader className=" bg-dark" />}
+        endMessage={
+          <p className="text-center text-white">
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
       >
+        <ToTop/>
         <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
           {manga.map((manga) => (
             <div
