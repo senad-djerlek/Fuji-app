@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import Loader from "../../components/scroll/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
+import ToTop from "../../components/ToTop/ToTop";
+
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -17,7 +19,6 @@ body{
 `;
 
 function Anime() {
-  let hasMore;
   const [animes, setAnimes] = useState([]);
   const [offset, setOffset] = useState(0);
   const [value, setValue] = useState("");
@@ -27,7 +28,10 @@ function Anime() {
   let pomeraj = 0;
   const navigate = useNavigate();
   const { state } = useLocation();
-  // const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [promena, setPromena] = useState(true);
+
+  let data;
 
   async function getAnimes() {
     let res;
@@ -51,15 +55,12 @@ function Anime() {
       }
     }
 
-    const data = await res.json();
+    data = await res.json();
     setAnimes((prevValue) => [...prevValue, ...data.data]);
-    if(data.length === 0){
-      // setHasMore(false);
-      hasMore=false;
-    }
-    else{
-      hasMore=true;
-      // setHasMore(true);
+    if (data.data.length === 0) {
+      setPromena(false);
+    } else {
+      setPromena(true);
     }
   }
 
@@ -68,12 +69,19 @@ function Anime() {
       setCategory(state.category);
       kategorija = state.category;
     }
+    window.scrollTo({top: 0});
     getAnimes();
   }, []);
 
   useEffect(() => {
     setOffset(offset + 20);
   }, [animes]);
+
+  useEffect(() => {
+      promena === true ? setHasMore(true) : setHasMore(false);
+  }, [promena]);
+
+  
 
   pomeraj = offset;
   naziv = value;
@@ -139,7 +147,7 @@ function Anime() {
             <input
               type="search"
               id="search"
-              className="block h-10 pl-10 w-full text-sm text-gray-900 border-white bg-dark rounded-lg border border-gray-300"
+              className="block h-10 pl-10 w-full text-sm text-gray-900 border-white text-white bg-dark rounded-lg border border-gray-300"
               placeholder="Search"
               required=""
               onChange={(e) => {
@@ -163,7 +171,8 @@ function Anime() {
           </p>
         }
       >
-        <div className="flex flex-wrap gap-8 justify-center bg-dark py-10">
+        <div className="flex flex-wrap gap-8 justify-center bg-dark py-10 z-1">
+            <ToTop/>
           {animes.map((anime) => (
             <div
               key={anime.id}
@@ -181,6 +190,8 @@ function Anime() {
                 });
               }}
             >
+              <div>
+              </div>
               <AnimeCard
                 image={anime.attributes.posterImage.small}
                 title={anime.attributes.canonicalTitle}

@@ -35,7 +35,7 @@ export default function FavPage() {
               <div className="w-full border-b pb-3 border-white flex flex-wrap">
                 {anime?.map((el) => (
                   <div key={el.id} 
-                  className="group flex justify-center hover:scale-105 transition ease-out mt-10 relative w-1/4 bg-black cursor-pointer rounded-lg shadow-md hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:group-hover:bg-gray-900 mx-3">
+                  className="group flex justify-center hover:scale-105 mx-3 transition ease-out mt-10 relative w-fit bg-black cursor-pointer rounded-lg shadow-md hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:group-hover:bg-gray-900">
                     <div
                       className="flex justify-center"
                       onClick={() => {
@@ -55,7 +55,7 @@ export default function FavPage() {
                       </h1>
                       <img
                         src={el.image}
-                        alt="image"
+                        alt=""
                         className=" rounded-lg delay-150 group-hover:brightness-20"
                       />
                     </div>
@@ -83,7 +83,7 @@ export default function FavPage() {
               <div className="w-full border-b pb-3 border-white flex flex-wrap">
                 {manga?.map((el) => (
                   <div key={el.id} 
-                   className="group flex justify-center hover:scale-105 transition ease-out mt-10 relative w-1/4 bg-black cursor-pointer rounded-lg shadow-md hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:group-hover:bg-gray-900 mx-3">
+                   className="group flex justify-center hover:scale-105 transition ease-out mt-10 relative w-fit bg-black cursor-pointer rounded-lg shadow-md hover:bg-gray-25 dark:bg-gray-800 dark:border-gray-700 dark:group-hover:bg-gray-900 mx-3">
                     <div
                       className="flex justify-center"
                       onClick={() => {
@@ -103,7 +103,7 @@ export default function FavPage() {
                       </h1>
                       <img
                         src={el.image}
-                        alt="image"
+                        alt=""
                         className=" rounded-lg delay-150 group-hover:brightness-20"
                       />
                     </div>
