@@ -7,7 +7,7 @@ export default function HomePoster({image, posterImage, title, episodes, rating,
     return (
         <div className="group relative rounded-lg transition ease-out delay-150 cursor-pointer"
         onClick={() => {
-            navigate(`anime/${title}/${id}`, {
+            navigate(`/anime/${title}/${id}`, {
               state: {
                 id: id,
                 image: posterImage,
