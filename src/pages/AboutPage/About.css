@@ -82,12 +82,12 @@
     font-weight: 500;
     letter-spacing: 0.02em;
 }
-/* @media (max-width: 1024px) {
+@media (max-width: 1024px) {
     .container {
         flex-direction: column;
-    } */
-/* } */
-ul {
+    }
+ }
+.uList {
     display: flex;
     flex-direction: row;
     gap: 3em;
